@@ -1,2 +1,15 @@
 # BudgetCalculator
 An easy GUI to create a savings plan
+
+### Project Notes:
+1. Build a datasteps.py script that defines a class Budget() that is basically just a dictionary of items in someones budget that I'll want to use in the app (date-range, starting balance, recurring income and expenses, etc.).  If this class can initialize itself from a json dictionary, contain methods to parse itself into a dataframe for plots and other anlysis, and contain methods to add, remove, and modify parameters in the dictionary, I should have everything I need to build a GUI on top of this in Dash. I can add methods here for fancier data manipulations if I want to later.
+2. Build a graphs.py script that takes data from a Budget() object and generates all the plots I'd want to display.  These functions will return figures that can be rendered in a Dash layout.
+3. Use a standard Dash file structure to define app.py, index.py, layout.py, and callbacks.py.  The layout will be structured as follows: 
+    -First, a dcc.Store() object will be used to save the parameters of Budget() in a small json-style dictionary.  
+    -Second, there will be a header with some tabs; the multi-tab structure will be built out to add any new layers of analysis, graphs will appear in each tab with dynamic objects (dropdowns, buttons, etc.) that users can use to manipulate graphs. 
+        -The primary tab will display a line-chart with Cash-Balance over time, and certain milestone dates marked.  It will have simple dropdowns for changing start date, end date, and initial balance; it will also have buttons for "Add Expense", "Add Income", and "Add Milestone" that launch simple entry forms to pass parameters into the add() method of Budget().   
+        -A secondary tab will show lists of all income, expenses, and milestone entries, and this tab will contain more buttons to prompt entry-forms for the user to modify entries, remove entries, or add entries.
+        -I'd like a third tab to show pie-charts breaking down monthly, weekly, and daily expenses by category, and maybe a button that toggles the inclusion of all expenses (ex. the "monthly expenses" pie chart can show total of all expenses for the month, or only expenses that recur at a monthly level)
+4. I need to think carefully about how to structure callbacks. The Budget() object in dcc.Store() can only be modified in a single callback; i.e. I can't have multiple callbacks outputing data to the same dcc.Store() object.
+5. I would love to have a method for uploading, editing, and downloading a Budget() object as a json file.  I know how to do download without issue; I haven't use upload, and it would be really cool to have a built-in json editor that the user can use in conjunction with the GUI buttons to make modifications to their budget.
+6. If I get really fancy, I can work out a way to cache budget data for each user so they can return to their dashboard in a later session without having to download and re-upload the json file.
