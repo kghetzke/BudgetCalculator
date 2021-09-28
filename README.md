@@ -13,3 +13,26 @@ An easy GUI to create a savings plan
 4. I need to think carefully about how to structure callbacks. The Budget() object in dcc.Store() can only be modified in a single callback; i.e. I can't have multiple callbacks outputing data to the same dcc.Store() object.
 5. I would love to have a method for uploading, editing, and downloading a Budget() object as a json file.  I know how to do download without issue; I haven't use upload, and it would be really cool to have a built-in json editor that the user can use in conjunction with the GUI buttons to make modifications to their budget.
 6. If I get really fancy, I can work out a way to cache budget data for each user so they can return to their dashboard in a later session without having to download and re-upload the json file.
+
+
+#### Scrum Cards...
+- [COMPLETED] Create and clone a repository on GitHub, and establish a working folder structure for this project
+- [COMPLETED] Create a JSON dictionary with items I would want to track for my own budget.
+- [COMPLETED] Build a Budget class around the JSON dictionary
+- [COMPLETED] Add an init method to the Budget class to initialize itself from json
+- [COMPLETED] Add a parse_df() method to Budget class to take budget items and serialize them as a cash-balance over time
+- [COMPLETED] Create a first-draft of a graphs.py file that has a function to take the Budget class and return a line-chart as a plotly-fig showing cash over time
+- [COMPLETED] Add app.py and index.py to run and test a dash app
+- [COMPLETED] create a basic layout.py file to include a header, tabs, content containers, and a footer; wrap everything in a make_layout() function so the index.py script runs properly
+- [COMPLETED] create a basic callbacks.py file and add a single callback to switch between tabs -> while completing this card I realized I needed to add a tabs.py file to prevent circular imports so that the layouts.py file can import callbacks, but the callbacks can return layout-type objects when the callback to switch tabs is called
+- [COMPLETED] add some layout features for Tab2 and a callback to callbacks.py that displays a graph using the function in graphs.py
+- [COMPLETED] create a basic layout for Tab1, and add callbacks that dynamically fill in rows of text for each budget entry, and buttons that we will use to edit or remove a budget item
+- Work out how to launch an entry form using dcc.Modal when a button is clicked. I'd like the add and edit buttons in tab-1 to launch entry forms where users can fill out simple fields to add/edit budget items.
+- Work out how the dynamically generated buttons can be associated with the items in the budget they are rendered next to.  I want the remove-item button to remove a specific item (the one in line next to it), but to do this I need to figure out how to connect the dynamically generated button to the specific item it's generated next to
+- Modify my graph function to display cash-flow based on an additional argument for variable-spending; this might require also editing the parse_df() method on the Budget class
+- I'd like to work out a simple optimization tool to "optimize" savings based on milestones - calculate the minimum savings required per month to reach your various savings milestones
+- Add a callback to get the download-current-budget button to work (simple download method I've used before)
+- Add a callback to get the "upload budget schema" button to work (theoretically simple with dcc.Upload, but I haven't used this before)
+- Determine if it's worth adding a built-in JSON editor to allow users to modify the JSON from browser; I think I can get the text-editor to work, but I don't think I can get the app to run in a forgiving way, where syntax errors are ignored rather than breaking the entire project.
+- Learn more about CSS styling and add a styles.css file to this app so that it doesn't look so bare
+- Add some content to Tab3; I'm thinking basic pie-charts that just show income / expense allocations, so these pie charts should be done after a quick session.

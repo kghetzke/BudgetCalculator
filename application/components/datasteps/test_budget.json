@@ -1,0 +1,124 @@
+{
+    "start_date": "01-01-2022",
+    "end_date": "01-01-2023",
+    "starting_balance": 5000.00,
+    "income": {
+        "monthly": [
+            {
+                "value": 1000,
+                "day": 15,
+                "description": "Main Paycheck"
+            },
+            {
+                "value": 1000,
+                "day": "last",
+                "description": "Main Paycheck"
+            }
+        ],
+        "weekly": [
+            {
+                "value": 150,
+                "day": "Friday",
+                "description": "Second Job's Paycheck"
+            }
+        ],
+        "daily": [
+            {
+                "value": 5.45,
+                "description": "Bitcoin mining"
+            },
+            {
+                "value": 3.25,
+                "description": "Ethereum mining"
+            }
+        ],
+        "one_off": [
+            {
+                "value": 760.00,
+                "date": "09-15-2022",
+                "description": "Year End Bonus"
+            }
+        ]
+    },
+    "expenses": {
+        "monthly": [
+            {
+                "value": 500,
+                "day": "last",
+                "description": "Rent Payment",
+                "category": "Housing"
+            },
+            {
+                "value": 150,
+                "day": 15,
+                "description": "Car Payment",
+                "category": "Auto"
+            },
+            {
+                "value": 150,
+                "day": 15,
+                "description": "Car Insurance",
+                "category": "Auto"
+            },
+            {
+                "value": 50,
+                "day": 10,
+                "description": "Internet Bill",
+                "category": "Utilities"
+            },
+            {
+                "value": 45,
+                "day": 3,
+                "description": "Gym membership",
+                "category": "Membership/Subscriptions"
+            },
+            {
+                "value": 100,
+                "day": 1,
+                "description": "Roth IRA Contribution",
+                "category": "Investment Contributions"
+            }
+        ],
+        "weekly": [
+            {
+                "value": 78.50,
+                "day": "Monday",
+                "description": "Grocerries",
+                "category": "Food and Grocerry"
+            },
+            {
+                "value": 25,
+                "day": "Sunday",
+                "description": "Church collection",
+                "category": "Charitable Giving"
+            }
+        ],
+        "daily": [
+            {
+                "value": 3.55,
+                "description": "Bridge toll for commute",
+                "category": "Transportation"
+            },
+            {
+                "value": 2.55,
+                "description": "Gas Costs",
+                "category": "Transportation"
+            }
+        ],
+        "one_off": [
+            {
+                "value": 500,
+                "date": "12-05-2022",
+                "description": "Christmas Gifts for my friends",
+                "category": "Gifts"
+            }
+        ]
+    },
+    "milestones": [
+        {
+            "date": "07-09-2022",
+            "description": "My Wedding",
+            "value": 10000
+        }
+    ]
+}
