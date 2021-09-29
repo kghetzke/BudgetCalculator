@@ -29,10 +29,11 @@ An easy GUI to create a savings plan
 - [COMPLETED] create a basic layout for Tab1, and add callbacks that dynamically fill in rows of text for each budget entry, and buttons that we will use to edit or remove a budget item
 - Work out how to launch an entry form using dcc.Modal when a button is clicked. I'd like the add and edit buttons in tab-1 to launch entry forms where users can fill out simple fields to add/edit budget items.
 - Work out how the dynamically generated buttons can be associated with the items in the budget they are rendered next to.  I want the remove-item button to remove a specific item (the one in line next to it), but to do this I need to figure out how to connect the dynamically generated button to the specific item it's generated next to
-- Modify my graph function to display cash-flow based on an additional argument for variable-spending; this might require also editing the parse_df() method on the Budget class
+- [COMPLETED] Modify my graph function to display cash-flow based on an additional argument for variable-spending;
 - I'd like to work out a simple optimization tool to "optimize" savings based on milestones - calculate the minimum savings required per month to reach your various savings milestones
 - Add a callback to get the download-current-budget button to work (simple download method I've used before)
 - Add a callback to get the "upload budget schema" button to work (theoretically simple with dcc.Upload, but I haven't used this before)
 - Determine if it's worth adding a built-in JSON editor to allow users to modify the JSON from browser; I think I can get the text-editor to work, but I don't think I can get the app to run in a forgiving way, where syntax errors are ignored rather than breaking the entire project.
 - Learn more about CSS styling and add a styles.css file to this app so that it doesn't look so bare
 - Add some content to Tab3; I'm thinking basic pie-charts that just show income / expense allocations, so these pie charts should be done after a quick session.
+- Modify the layout of Tab2 and add a callback so the slider calculates allows users to select a percentage of disposable income to spend each month from 0-200%. This will require a percent calculation, and will probably work hand-in-hand with whatever datasteps I need to display pie-charts in Tab3 with income/expense sources (I'll need to normalize/sum all expenses). Also add a button to calculate "optimized" spending
