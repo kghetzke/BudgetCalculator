@@ -15,22 +15,6 @@ import  application.components.datasteps.graphs as app_graphs
 from application.components.datasteps.datasteps import Budget, budget_item
 from application.components.layouts.modals import day_selection_dropdowns, fill_modal
 
-
-"""
-### First Callback: Switch between Tabs ###
-
-@app.callback(
-    Output('content_container','children'),
-    Input(component_id="tab_keys", component_property = "value")
-    )
-def choose_tab(tab):
-    if tab=='tab1':
-        return tab1_layout()
-    elif tab=='tab2':
-        return tab2_layout()
-    elif tab=='tab3':
-        return tab3_layout()
-"""
 ### Tab 1 Callbacks ###
 
 # First, some callbacks to fill in the budget items
