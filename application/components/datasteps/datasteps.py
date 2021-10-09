@@ -40,17 +40,17 @@ class Budget:
     def add_item(self,new_item: budget_item):
         if new_item.type=='income':
             self.income[new_item.subtype].append(new_item.item)
-        elif new_item.type=='expense':
+        elif new_item.type=='expenses':
             self.expenses[new_item.subtype].append(new_item.item)
-        elif new_item.type=='milestone':
+        elif new_item.type=='milestones':
             self.milestones.append(new_item.item)
 
     def remove_item(self, item: budget_item):
         if item.type=='income':
             self.income[item.subtype].remove(item.item)
-        elif item.type=='expense':
+        elif item.type=='expenses':
             self.expenses[item.subtype].remove(item.item)
-        elif item.type=='milestone':
+        elif item.type=='milestones':
             self.milestones.remove(item.item)
 
     def modify_item(self, org_item: budget_item, new_item: budget_item):

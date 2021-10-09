@@ -23,16 +23,10 @@ def dollars_rounding(i):
 def time_series_budget(budget: Budget, avg_spending):
     """ Creates a Time-Series Plot of the budget"""
     data = budget.parse_df()
-
-    # I need to modify this to accomodate an argument for "avg variable expenses"
     data['CashBalance'] = budget.starting_balance + (data['Income']-data['Expenses']-(avg_spending/30.4)).cumsum()
 
-
     fig = px.line(data, y="CashBalance")
-    # milestones = data[['Milestones']].dropna()
-    # for idx, val in milestones.iterrows():
-    #     fig.add_vline(x=str(idx))
-    #     fig.add_annotation(x=str(idx),y=data['CashBalance'].max(),text=val[0], showarrow=False, xanchor='left')
+
     for obj in budget.milestones:
         date = pd.to_datetime(obj['date'])
         fig.add_vline(x=date)

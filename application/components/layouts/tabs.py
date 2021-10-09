@@ -62,8 +62,15 @@ def tab2_layout():
     layout = html.Div([
         tab2_head,
         dcc.Graph(id = "forecast_graph", figure = {}),
-        dcc.Slider(id = "spending_slider", min=0, max=1000, value=500)
-        # I want to add a slider to show monthly expenses, and I should update the graphing function to accomodate that
+        html.Div([
+            html.Div("Manually set spending (as % of disposable income)", style = {'margin': 'auto', 'text-align': 'center'}),
+            dcc.Slider(id = "spending_slider", min=0, max=200, value=50, marks ={0: '0%', 100: '100%', 200: '200%'})
+            ],
+            id = 'slider_container',
+            style = {'width': '35%', 'margin': 'auto'}
+        ),
+        html.Div([html.Button('Optimize Spending', id='optimize_spend_button')], style={'width': '30%', 'margin': 'auto'}),
+        html.Hr()
     ])
     return layout
 

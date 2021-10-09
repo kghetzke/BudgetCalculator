@@ -9,6 +9,7 @@ from application.app import app
 from application.components.callbacks import callbacks
 from application.components.datasteps.datasteps import Budget, budget_item
 from application.components.layouts.tabs import tab1_layout, tab2_layout, tab3_layout
+from application.components.layouts.modals import budget_item_entry_modal
 
 ### Header (for all tabs)###
 basic_header = html.Div([
@@ -41,6 +42,7 @@ def make_layout():
         dcc.Store(id = 'budget_beta', data = None),
         dcc.Store(id = 'budget_gamma', data = None),
         dcc.Store(id = 'budget_delta', data = None),
+        budget_item_entry_modal(),
         basic_header,
         html.Br(),
         tab_keys,
