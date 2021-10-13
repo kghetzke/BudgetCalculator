@@ -139,3 +139,8 @@ if __name__=='__main__':
     budget_dict = my_budget.__dict__
     budget_reinit = Budget(budget_dict)
     print(budget_reinit.milestones)
+
+    """ Test how to use JSON.dump"""
+    file_obj = io.BytesIO()
+    json.dump(budget_dict, file_obj)
+    print(fileio)
