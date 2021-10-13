@@ -10,7 +10,6 @@ import dash_core_components as dcc
 from dash.dependencies import Input, Output, State, ALL, MATCH
 
 from application.app import app
-from application.components.layouts.tabs import tab1_layout, tab2_layout, tab3_layout
 import  application.components.datasteps.graphs as app_graphs
 from application.components.datasteps.datasteps import Budget, budget_item
 from application.components.layouts.modals import day_selection_dropdowns, fill_modal
@@ -194,16 +193,18 @@ def dump_fields(fields,ids,data, data_ids, old_dump, is_open):
     Input({'type': 'remove_income', 'index': ALL}, 'n_clicks'),
     Input({'type': 'remove_expenses', 'index': ALL}, 'n_clicks'),
     Input({'type': 'remove_milestones', 'index': ALL}, 'n_clicks'),
+    Input('json_save_button','n_clicks'),
     State('main_budget','data'),
     State('modal_fields_dump','data'),
+    State('json_edit_text','value'),
     prevent_initial_call = True,
 )
-def modify_budget(n0, n1_1, n1_2, n1_3, budget, modal_dump):
+def modify_budget(n0, n1_1, n1_2, n1_3, n2, budget, modal_dump, edit_json_text):
     ctx = dash.callback_context
+    # First, for callback triggered by remove item buttons, find the item and remove it
     if ctx.triggered[0]['prop_id'].split('.')[0][0] == '{':
-        """ First, if the callback is trigged by the edit buttoms, make sure it's not on initial loading """
+        """ First, if the callback is trigged by the remove buttoms, make sure it's not on initial loading """
         if ctx.triggered[0]['value'] == None:
-            print("This Worked")
             return (budget)
         else:
             """ Parse the dictionary to find the item to remove 
@@ -218,6 +219,7 @@ def modify_budget(n0, n1_1, n1_2, n1_3, budget, modal_dump):
             my_budget = Budget(budget)
             my_budget.remove_item(loaded_item)
             return (my_budget.__dict__)
+    # If the callback is triggered by the save button in the modal, run something else
     elif ctx.triggered[0]['prop_id'].split('.')[0] == 'modal_save_button':
         my_budget = Budget(budget)     
         new_item = budget_item(modal_dump['new_item']['type'],modal_dump['new_item']['subtype'],modal_dump['new_item']['item'])
@@ -226,19 +228,49 @@ def modify_budget(n0, n1_1, n1_2, n1_3, budget, modal_dump):
             my_budget.remove_item(old_item)
         my_budget.add_item(new_item)
         return (my_budget.__dict__)
+    # Next, if I save the json from text editor, overwrite the budget file (this could cause all kinds of bugs with text-errors, but this is a hobby project)
+    elif ctx.triggered[0]['prop_id'].split('.')[0] == 'json_save_button':
+        return (dict(json.loads(edit_json_text)))
 
+# After these, we'll want to add one for uploading a scheme from JSON, and we'll want to add some fields for Starting Balance/Start Date
 
+### Download budget as json ###
+@app.callback(
+    [Output(component_id= "json_dwnld", component_property = "data")],
+    [Input("save_budget_button", "n_clicks",)],
+    [State('main_budget','data')],
+    prevent_initial_call = True,
+    )
+def download_data(n_clicks, budget):
+    return [dcc.send_bytes(json.dumps(budget, indent = 4).encode('utf-8'), "MyBudget.json")]
 
-
+### Edit JSON (show and close modal) ###
+@app.callback(
+    Output("json_modal","is_open"),
+    Output("json_edit_text","value"),
+    Input("edit_json_button","n_clicks"),
+    Input("json_cancel_button","n_clicks"),
+    Input("json_save_button","n_clicks"),
+    State("main_budget","data"),
+    prevent_initial_call = True
+)
+def show_json_editor(open,cancel,save,budget):
+    ctx = dash.callback_context
+    if ctx.triggered[0]['prop_id'].split('.')[0] == 'edit_json_button':
+        return True, json.dumps(budget, indent = 4)
+    else:
+        return False, ""
 
 ### Tab 2 Callbacks ###
 
 @app.callback(
     Output('forecast_graph','figure'),
+    Output('slider_msgbox', 'children'),
     Input('main_budget','data'),
     Input('spending_slider', 'value')
     #Let's also add an input for the slider that changes monthly variable $
     )
 def time_series_graph(data, spend):
     budget = Budget(from_json = data)
-    return app_graphs.time_series_budget(budget, spend)
+    fig, message = app_graphs.time_series_budget(budget, spend)
+    return fig, message

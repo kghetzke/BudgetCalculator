@@ -130,5 +130,6 @@ dmypy.json
 
 # Personal Files and output from testing
 my_budget.json
+gabrielle_budget.json
 test.csv
 test_files/

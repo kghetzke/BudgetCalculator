@@ -19,6 +19,22 @@ def budget_item_entry_modal():
     )
     return modal
 
+def json_modal():
+    modal = dbc.Modal(
+        id = "json_modal",
+        children = [
+            dbc.ModalHeader("Edit Budget"),
+            dcc.Textarea(id = 'json_edit_text', style = {'height': 500}),
+            dbc.ModalFooter(
+                [dbc.Button("Cancel", id = "json_cancel_button"),
+                dbc.Button("Save", id = "json_save_button")]
+            ),
+        ],
+        size = "xl"
+    )
+    return modal
+
+
 month_days = [
     {'label': '1 - First', 'value': 1},
     {'label': '2 - Second', 'value': 2},

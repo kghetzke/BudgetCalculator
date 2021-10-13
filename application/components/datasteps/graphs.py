@@ -20,10 +20,13 @@ def dollars_rounding(i):
     else:
         return
 
-def time_series_budget(budget: Budget, avg_spending):
+def time_series_budget(budget: Budget, spend_pct):
     """ Creates a Time-Series Plot of the budget"""
     data = budget.parse_df()
-    data['CashBalance'] = budget.starting_balance + (data['Income']-data['Expenses']-(avg_spending/30.4)).cumsum()
+    avg_exp = data['Expenses'].mean()
+    avg_inc = data['Income'].mean()
+    avg_disposable = avg_inc - avg_exp
+    data['CashBalance'] = budget.starting_balance + (data['Income']-data['Expenses']-(avg_disposable*(spend_pct/100))).cumsum()
 
     fig = px.line(data, y="CashBalance")
 
@@ -31,7 +34,10 @@ def time_series_budget(budget: Budget, avg_spending):
         date = pd.to_datetime(obj['date'])
         fig.add_vline(x=date)
         fig.add_annotation(x=date,y=obj['value'],text=obj['description'], showarrow=True, xanchor='right',hovertext = "Savings target of " + dollars_rounding(obj['value']))
-    return fig
+    
+    message_text = "Spending " + str(spend_pct) + "% of dispossable income allows for about $" + str(round(avg_disposable*(spend_pct/100),2)) + " of non-fixed spending per day, or about $" + str(round(30.4*avg_disposable*(spend_pct/100),2)) + " per month."
+
+    return fig, message_text
 
 
 

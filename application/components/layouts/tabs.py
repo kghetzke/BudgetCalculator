@@ -10,7 +10,7 @@ tab1_head = html.H1(['My Budget Items'],style = {'width': '100%', 'text-align': 
 
 main_buttons = html.Div([
     html.Button("Upload Budget Schema", id="upload_budget_button", style = {'width': '30%', 'margin':'auto'}),
-    html.Button("Edit JSON", id = "edit_json_button", style = {'width': '30%', 'margin': 'auto'}),
+    html.Button("Edit  Budget JSON", id = "edit_json_button", style = {'width': '30%', 'margin': 'auto'}),
     html.Button("Download Current Schema", id = "save_budget_button", style = {'width': '30%', 'margin': 'auto'})],
     style = {'display':'flex', 'width': '40%', 'margin': 'auto'}
     )
@@ -63,13 +63,14 @@ def tab2_layout():
         tab2_head,
         dcc.Graph(id = "forecast_graph", figure = {}),
         html.Div([
-            html.Div("Manually set spending (as % of disposable income)", style = {'margin': 'auto', 'text-align': 'center'}),
+            html.Div("Set Spending (as % of disposable income)", style = {'margin': 'auto', 'text-align': 'center'}),
             dcc.Slider(id = "spending_slider", min=0, max=200, value=50, marks ={0: '0%', 100: '100%', 200: '200%'})
             ],
             id = 'slider_container',
             style = {'width': '35%', 'margin': 'auto'}
         ),
-        html.Div([html.Button('Optimize Spending', id='optimize_spend_button')], style={'width': '30%', 'margin': 'auto'}),
+        #html.Div([html.Button('Optimize Spending', id='optimize_spend_button')], style={'width': '30%', 'margin': 'auto'}),
+        html.Div([],id = "slider_msgbox", style={'width': '30%', 'margin': 'auto','text-align': 'center'}),
         html.Hr()
     ])
     return layout
