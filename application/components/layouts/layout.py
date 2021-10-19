@@ -33,7 +33,7 @@ footer = html.Div(["Click ",html.A("here",href='https://github.com/kghetzke/Budg
 
 ### Final Wrapper ###
 
-with open('application\components\datasteps\\my_budget.json') as file:
+with open('application\components\datasteps\\test_budget.json') as file:
     my_json = json.load(file)
 
 def make_layout():
